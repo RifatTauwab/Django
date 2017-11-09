@@ -1,0 +1,120 @@
+1. to create an app 
+python manage.py startapp video
+2. in Django , for model = models.py 
+               for view = template 
+               for controller = views.py 
+
+*********************************************************************
+3. as I have faced virtualenv related problem with pycharm
+to solve 
+Select File, click Settings.
+In the left pane, enter Project Interpreter in the search box, then click Project Interpreter.
+In the right pane, click the gear icon, click More….
+In the Project Interpreters dialog box, click the plus sign +, click Add Local.
+Enter ~/virtualenvs/<your virtualenv name>/bin/python in the path. 
+If you followed the earlier post to setup a virtual environment for Python 
+then enter ~/virtualenvs/api/bin/python.
+Click OK.
+Select 2.7.6 virtualenv at ~/virtualenvs/api, click the edit icon.
+Check Associate this virtual environment with current project.
+Click OK.
+Click OK.
+Click Apply, click OK.
+************************************************************************
+4. install required mysql connector package for python 
+sudo apt-get install python-dev libmysqlclient-dev
+from virtualenv ,
+pip install mysqlclient
+4. to work with database , we should configure database from settings.py files
+first add our models app 'video' in INSTALLED_APPS = [] 
+then add 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'djangolife',
+        'USER': 'root',
+        'PASSWORD': 'password',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+    }
+}
+5. python manage.py makemigrations
+6. python manage.py migration
+then django create same table in defined database
+
+
+Admin
+
+7.to create admin super user 
+python manage.py createsuperuser
+user : tauwab
+email
+password 9lake.....
+password .......
+
+8. python manage.py runserver
+
+*********************************************
+
+working with view 
+
+9. from app "video" we can see views.py file 
+here we write function (as like controller ) for view 
+
+suppose we write 
+def home(request):
+    return HttpResponse("Hello World")
+
+10. from urls.py , we have to add url to display this view
+if we want to display this view in root url
+just add 
+url(r'^$',home , name="home"),
+
+****************************************
+
+working with static file (css js)
+
+11. create a static folder , place all css , js into it 
+12. as this static folder already mapped in settings.py 
+STATIC_URL = '/static/'
+
+so if we want to include these static files into template file 
+add like 
+<link href="{{ STATIC_URL }}bootstrap/css/bootstrap.min.css">
+13. to render all these static file , we have to configure it from settings.py
+add 
+'context_processors': [
+   ...........
+   'django.template.context_processors.static',
+
+*******************************************
+
+create rest application 
+
+1. pip install djangorestframework
+2. add  'rest_framework', into INSTALLED_APPS from settings.py
+3. create a serializer , create a file serializers.py , and include this code 
+
+from rest_framework.serializers import ModelSerializer
+from .models import Video
+class VideoSerializers(ModelSerializer):
+    class Meta:
+        model = Video
+        fields = '__all__'
+        #fields = ('title', 'code',)    
+
+4. from views.py 
+class VideoViewSet(ModelViewSet):
+    queryset = Video.objects.all()
+    serializer_class = VideoSerializers
+
+router = DefaultRouter()
+router.register('video',VideoViewSet)
+
+5. from urls.py add router urls 
+url(r'^api/', include(router.urls)),
+
+6. now if we goto http://localhost:8000/api
+http://localhost:8000/api/video/1/ 
+we can see the responses 
+
