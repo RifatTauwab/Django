@@ -1,3 +1,4 @@
+to create project django-admin startproject CGHandler1
 1. to create an app 
 python manage.py startapp video
 2. in Django , for model = models.py 

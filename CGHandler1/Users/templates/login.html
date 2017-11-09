@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+
+{% block title %} Home {% endblock %}
+
+{% block body %}
+
+<form method="POST" class="form-horizontal">
+    <fieldset>
+
+        <!-- Form Name -->
+        <legend>login</legend>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="username">Username</label>
+            <div class="col-md-5">
+                <input id="username" name="username" type="text" placeholder="username" class="form-control input-md"
+                       required="">
+
+            </div>
+        </div>
+
+        <!-- Password input-->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="password">Password</label>
+            <div class="col-md-5">
+                <input id="password" name="password" type="password" placeholder="" class="form-control input-md"
+                       required="">
+
+            </div>
+        </div>
+
+        {% csrf_token %}
+        <!-- Button -->
+        <div class="form-group">
+            <label class="col-md-4 control-label" for="submit"></label>
+            <div class="col-md-4">
+                <button id="submit" name="submit" class="btn btn-primary">Login</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+
+
+{% endblock %}
