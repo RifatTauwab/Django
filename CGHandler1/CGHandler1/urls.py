@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'', include('Users.urls')),
     #-----------Media-----------------
     url(r'', include('Media.urls')),
+
 ]
 
 if settings.DEBUG:

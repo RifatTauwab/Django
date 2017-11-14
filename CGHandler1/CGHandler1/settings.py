@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'Users',
     'Media',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

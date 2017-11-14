@@ -32,33 +32,25 @@
             </table>
         </div>
 
-
+        <input type="button" onclick="MediaListApi()" value="Call API Service" />
     </div>
-     <!--<script>-->
 
+<script>
+    MediaListApi = function () {
+        $.ajax({
+            url: "/media/api/media/",
+            dataType: 'json',
+            async: false,
+            type:"GET",
+            success: function(data){
+              alert(data);
+            },
+            error: function(data){
+              alert('error; '+ eval(error));
+            }
+        });
+    };
 
-
-
-<!--//For doing AJAX post-->
- <!--this.saveTempVdf = function (cmd) {-->
-
-
- <!--$.ajax({-->
-         <!--url : /media/cgserver, // the endpoint,commonly same url-->
-         <!--type : "GET", // http method-->
-         <!--data : {-->
-         <!--cmd : cmd,-->
- <!--}, // data sent with the post request-->
-
- <!--// handle a successful response-->
- <!--success: function () {-->
- <!--},-->
-
- <!--// handle a non-successful response-->
- <!--error : function(xhr,errmsg,err) {-->
- <!--});-->
-<!--});-->
-
-<!--</script>-->
+</script>
 
 {% endblock %}
