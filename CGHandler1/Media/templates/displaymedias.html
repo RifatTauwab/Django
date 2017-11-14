@@ -1,0 +1,64 @@
+{% extends 'base_black.html' %}
+
+
+{% block title %} Video List {% endblock %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col">
+            <div class="embed-responsive embed-responsive-16by9">
+                <video controls name="media">
+                    <source src="/media/{{name}}">
+                </video>
+            </div>
+        </div>
+
+        <div class=" bg-dark col">
+            <table class="table table-striped table-inverse">
+                <tr><th>name</th><th></th></tr>
+                {% for file in Files %}
+                    <tr>
+                        <td><a href="{% url 'runMedia' file %}">{{ file }}</a></td>
+                        <td>
+                            <a href="{% url 'serverHandlerFileName' file %}">play</a>
+
+                        </td>
+                    </tr>
+
+
+
+                {% endfor %}
+            </table>
+        </div>
+
+
+    </div>
+     <!--<script>-->
+
+
+
+
+<!--//For doing AJAX post-->
+ <!--this.saveTempVdf = function (cmd) {-->
+
+
+ <!--$.ajax({-->
+         <!--url : /media/cgserver, // the endpoint,commonly same url-->
+         <!--type : "GET", // http method-->
+         <!--data : {-->
+         <!--cmd : cmd,-->
+ <!--}, // data sent with the post request-->
+
+ <!--// handle a successful response-->
+ <!--success: function () {-->
+ <!--},-->
+
+ <!--// handle a non-successful response-->
+ <!--error : function(xhr,errmsg,err) {-->
+ <!--});-->
+<!--});-->
+
+<!--</script>-->
+
+{% endblock %}
