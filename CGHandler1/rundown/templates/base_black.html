@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %} Video {% endblock %}
+    </title>
+
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap-grid.min.css">
+
+    <script type="application/javascript" src="/static/bootstrap/js/bootstrap.js"></script>
+
+    <script type="application/javascript" src="/static/js/jquery-3.2.1.min.js"></script>
+    <style>
+        body {
+            background-color: black;
+        }
+    </style>
+    {% block head %}{% endblock %}
+</head>
+
+<body>
+    <div class="container">
+        <div class="text-white">
+            {% block body %}
+
+            {% endblock %}
+        </div>
+
+        <footer>
+            {% block footer %}
+
+            {% endblock %}
+        </footer>
+    </div>
+
+</body>
+
+</html>

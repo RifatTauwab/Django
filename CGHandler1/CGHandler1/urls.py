@@ -28,6 +28,8 @@ urlpatterns = [
     url(r'', include('Users.urls')),
     #-----------Media-----------------
     url(r'', include('Media.urls')),
+    #-----------rundown-----------------
+    url(r'', include('rundown.urls')),
 
 ]
 

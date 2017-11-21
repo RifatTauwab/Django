@@ -1,0 +1,76 @@
+{% extends 'base_black.html' %}
+
+
+{% block title %} Video List {% endblock %}
+
+{% block body %}
+
+<div class="row">
+    <div class=" bg-dark col">
+        <table class="table table-dark table-striped">
+            <thead>
+                <th>file list</th>
+            </thead>
+            {% for file in Files %}
+                <tr>
+                    <td><img src="/media/thumbnail/{{file|slice:'0:-4'|add:'.png'}}" height="42" width="60"/></td>
+                    <td>{{ file|slice:"0:-4" }}</td>
+                    <td>
+                        <button class="btn btn-primary" onclick="AddToRunDown('{{ file|slice:'0:-4' }}')">Add</button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <div class=" bg-dark col">
+
+        <table class="table table-dark table-striped" id="table_rundown">
+            <thead>
+                <th>RunDown List</th>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+<script>
+    MediaListApi = function () {
+        $.ajax({
+            url: "/media/api/media/",
+            dataType: 'json',
+            async: false,
+            type:"GET",
+            success: function(data){
+              alert(data);
+            },
+            error: function(data){
+              alert('error; '+ eval(error));
+            }
+        });
+    };
+
+    AddToRunDown = function (fileName) {
+        $.ajax({
+            type: "POST",
+            url: '/rundown/',
+            async: false,
+            data: {"name": fileName,},
+            success: function (data) {
+                var table = $("#table_rundown tbody");
+                $.each(data, function(indx, elem){
+                    var filename = elem.name;
+                    var timestamp = elem.timestamp;
+                    var image = "/media/thumbnail/"+elem.image;
+                    table.append("<tr><td>"+filename+"</td><td>"+timestamp+"</td><td><img src='"+image+"' height='42' width='60'/></td></tr>");
+                });
+            }
+        });
+    };
+
+</script>
+
+{% endblock %}
