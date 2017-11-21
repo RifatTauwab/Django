@@ -1,0 +1,11 @@
+{% extends 'base_black.html' %}
+
+
+{% block title %} Video List {% endblock %}
+
+{% block body %}
+{% load tags %}
+{% for token in  name|split:" " %}
+    <p>{{token}}</p>
+{% endfor %}
+{% endblock %}

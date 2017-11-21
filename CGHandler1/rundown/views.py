@@ -53,3 +53,7 @@ def loadMedias(request):
     return render(request,'rundown.html',{'Files':Files ,})
 
 
+def testCustomTags(request):
+    return render(request, 'test.html', {'name': 'abc xyz 123', })
+
+

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'Users',
     'Media',
     'rundown',
+    'rundown.templatetags',
     'rest_framework',
 ]
 
