@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+
+{% block title %} Home {% endblock %}
+
+{% block body %}
+
+    <div class="col-md-5">
+        <input id="text" name="text" type="text" onchange="getResponse()" placeholder="http://example.com" class="form-control input-md">
+
+    </div>
+    </br>
+    <div class="card-deck" id="webdisplay">
+        <!--<div class="col-sm-6">-->
+            <!--<div class="card">-->
+                <!--<img class="card-img-top" src="..." alt="Card image cap">-->
+                <!--<div class="card-block">-->
+                    <!--<h3 class="card-title">Special title treatment</h3>-->
+                    <!--<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>-->
+                    <!--<a href="#" class="btn btn-primary">Edit</a>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    </div>
+
+
+
+<script>
+
+$(document).ready(function(){
+    $.ajax({
+        url: "http://localhost:8000/api/websites/",
+        type: "GET",
+        async: false,
+        success: function(data){
+           var webdisplay = $("#webdisplay");
+           $.each(data, function(indx, elem){
+               webdisplay.append("<div class='col-sm-6'><div class='card bg-dark text-white'><img class='card-img-top' src='"+elem.img+"' alt='Card image cap' width='350' height='300'><div class='card-block'><h3 class='card-title'>"+elem.title+"</h3><p class='card-text'>"+elem.content+"</p><p class='card-text'><small class='text-muted'>keywords:"+elem.keywords+"</small></p><div class='card-block'><button class='btn btn-primary' onclick=\"SaveWeb('"+elem.link+"','"+elem.title+"','"+elem.img+"','"+elem.content+"','"+elem.keywords+"')\">Save</button><a href='#' class='btn btn-primary'>Edit</a><a href='"+elem.link+"' target='_blank' class='card-link btn btn-primary'>Go</a></div></div></div></div>");
+           });
+        }});
+});
+
+getResponse = function () {
+    var url = encodeURI($("input").val());
+
+    $.ajax({
+        url: "/bookmark/",
+        type: "POST",
+        data: {"url": url,},
+        success: function(data) {
+            var webdisplay = $("#webdisplay");
+            $.each(data, function(indx, elem){
+                var title = elem.title;
+                var image = elem.image;
+                var desc = elem.desc;
+                var keywords = elem.keywords;
+                var url = elem.url;
+                <!--$("#title").text(title);-->
+                <!--$("#description").text(desc);-->
+                <!--$("#img").text(image);-->
+                <!--$("#keywords").text(keywords);-->
+
+                <!--//webdisplay.append("<div class='d-inline-block col-4' onclick><img src='"+image+"' class='img-responsive'  width='350' height='300'><p><b>"+title+"</b></p><p>"+desc+"</p><p>"+keywords+"</p></div>");-->
+                webdisplay.append("<div class='col-sm-6'><div class='card bg-dark text-white'><img class='card-img-top' src='"+image+"' alt='Card image cap' width='350' height='300'><div class='card-block'><h3 class='card-title'>"+title+"</h3><p class='card-text'>"+desc+"</p><p class='card-text'><small class='text-muted'>keywords:"+keywords+"</small></p><div class='card-block'><button class='btn btn-primary' onclick=\"SaveWeb('"+url+"','"+title+"','"+image+"','"+desc+"','"+keywords+"')\">Save</button><a href='#' class='btn btn-primary'>Edit</a><a href='"+url+"' target='_blank' class='card-link btn btn-primary'>Go</a></div></div></div></div>");
+            });
+        }
+    });
+};
+
+SaveWeb = function (link,title,image,description,keywords) {
+
+    $.ajax({
+        url: "http://localhost:8000/api/websites/",
+        type: "POST",
+        data: {"link": link,"img": image,"title": title,"content": description,"keywords": keywords},
+        success: function(data) {
+
+        }
+    });
+};
+
+</script>
+
+
+
+{% endblock %}
